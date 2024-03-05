@@ -5,9 +5,9 @@ from django.http import HttpResponse, FileResponse
 from django.shortcuts import redirect, render
 from openpyxl import load_workbook
 from docx import Document
-from .populate_excel import populate_excel
+from core import populate_excel
+from core import utils
 from .forms import PopulateExcelForm
-
 
 # Create your views here.
 
@@ -27,43 +27,30 @@ def populate_excel_view(request):
     """View function for the loan form page."""
 
     if request.method == 'POST':
-        # Use a form (optional)
-        if 'use_form' in request.POST:  # Check if using form submission
-            form = PopulateExcelForm(request.POST)
-            if form.is_valid():
-                account_number = form.cleaned_data['account_number']
-                form_data = form.cleaned_data
-            else:
-                # Handle form validation errors (e.g., display error messages)
-                return render(request, 'core/loan_form.html', {'form': form})
-        else:  # Manual form data handling
-            account_number = request.POST.get('account_number')
-            form_data = {
-                'Loan Application Date': request.POST.get('loan_application_date'),
-                'Purpose of the Loan': request.POST.get('purpose_of_the_loan'),
-                'Address/Location': request.POST.get('address_location'),
-                'Business Financed': request.POST.get('business_financed'),
-                'Group Name': request.POST.get('group_name'),
-                'Reason for Default (Summarised)': request.POST.get('reason_for_default_summarised'),
-                'Detailed Reason for Default': request.POST.get('detailed_reason_for_default'),
-            }
-
-        # Validate data (e.g., check if account number exists)
-        # ... (Implement your validation logic)
-
-        # Call the populate_excel function
-        populate_excel(account_number, form_data)
-
-        # Handle success (e.g., redirect to success page)
-        return redirect('core:success')  # Replace with your success URL
+        form = PopulateExcelForm(request.POST)
+        if form.is_valid():
+            account_number = form.cleaned_data['account_number']
+            form_data = form.cleaned_data
+            populate_excel(account_number, form_data)
+            return redirect('core:success')  # Redirect to success page
+        else:
+            return render(request, 'core/loan_form.html', {'form': form})
     else:
-        # Use a form (optional)
-        form = PopulateExcelForm()  # Create a blank form (if using)
-        return render(request, 'core/loan_form.html', {'form': form})  # Render form template
+        account_number = request.GET.get('account')
+        if account_number:
+            account = find_account(account_number)
+            if account:
+                form = PopulateExcelForm(initial={'account_number': account_number})
+                return render(request, 'core/loan_form.html', {'form': form})
+            else:
+                error_message = "Account not found. Please enter a valid account number."
+                return render(request, 'core/error.html', {'error_message': error_message})
+        else:
+            form = PopulateExcelForm()
+            return render(request, 'core/account_search.html', {'form': form})
 
 def success_view(request):
     """View function for success page"""
-    # Optional: Pass additional success context data
     context = {'message': 'Your form has been submitted successfully!'}
     return render(request, 'core/success.html', context)
 
