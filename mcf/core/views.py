@@ -5,8 +5,9 @@ from django.http import HttpResponse, FileResponse
 from django.shortcuts import redirect, render
 from openpyxl import load_workbook
 from docx import Document
+from core.utils import find_account
+from core.populate_excel import populate_excel
 from core import populate_excel
-from core import utils
 from .forms import PopulateExcelForm
 
 # Create your views here.
@@ -53,6 +54,8 @@ def success_view(request):
     """View function for success page"""
     context = {'message': 'Your form has been submitted successfully!'}
     return render(request, 'core/success.html', context)
+
+
 
 # Function to find data for a specific account number in the Excel sheet
 def find_account_data(account_number):

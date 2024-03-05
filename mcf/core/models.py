@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Account(models.Model):
+    
     account_number = models.CharField(max_length=50, unique=True)
     loan_application_date = models.DateField(null=True, blank=True)
     purpose_of_loan = models.CharField(max_length=255, blank=True)
