@@ -3,11 +3,12 @@
 {% block content %}
 <div class="container">
     <h1>Populate Excel Sheet</h1>
+    <p>Enter the following details for {{ account_name }}</p>
     <form method="post" action="{% url 'populate_excel' %}">
         {% csrf_token %}
-        <label for="account_number">Enter Account Number:</label>
-        <input type="text" name="account_number" id="account_number" required>
-
+        {{ account_number }}
+        {{ form.as_p }}
+        
         <br>
         <button type="submit">Populate Excel</button>
 

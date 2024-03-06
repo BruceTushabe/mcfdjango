@@ -2,7 +2,7 @@ from django import forms
 
 class PopulateExcelForm(forms.Form):
     """Form for populating the excel template"""
-    #account_number = forms.IntegerField(label="Account Number", required=True)
+    account_number = forms.IntegerField(label="Account Number", required=True)
     loan_application_date = forms.DateField(label="Loan Application Date", required=True)
     purpose_of_the_loan = forms.CharField(label="Purpose of the Loan", required=True)
     address_location = forms.CharField(label="Address/Location", required=True)

@@ -1,7 +1,7 @@
 from datetime import datetime
 from openpyxl import load_workbook
 
-def populate_excel(account_number, form_data, template_path="data1.xlsx"):
+def populate(account_number, form_data, template_path="data1.xlsx"):
     """Populate an Excel template with form data for a specified account number."""
     try:
         wb = load_workbook(template_path)

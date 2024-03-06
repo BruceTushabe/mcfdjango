@@ -6,7 +6,7 @@ from django.shortcuts import redirect, render
 from openpyxl import load_workbook
 from docx import Document
 from core.utils import find_account
-from core.populate_excel import populate_excel
+from core.populate_excel import populate
 from core import populate_excel
 from .forms import PopulateExcelForm
 
@@ -32,7 +32,7 @@ def populate_excel_view(request):
         if form.is_valid():
             account_number = form.cleaned_data['account_number']
             form_data = form.cleaned_data
-            populate_excel(account_number, form_data)
+            populate(account_number, form_data)
             return redirect('core:success')  # Redirect to success page
         else:
             return render(request, 'core/loan_form.html', {'form': form})
@@ -41,8 +41,9 @@ def populate_excel_view(request):
         if account_number:
             account = find_account(account_number)
             if account:
+                account_name = account[1]
                 form = PopulateExcelForm(initial={'account_number': account_number})
-                return render(request, 'core/loan_form.html', {'form': form})
+                return render(request, 'core/loan_form.html', {'form': form, 'account_name': account_name})
             else:
                 error_message = "Account not found. Please enter a valid account number."
                 return render(request, 'core/error.html', {'error_message': error_message})

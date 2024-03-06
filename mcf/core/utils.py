@@ -10,10 +10,12 @@ def find_account(account_number):
         sheet = workbook.active
         for row in sheet.iter_rows(min_row=2, values_only=True):
             if row[2] == account_number:
-                return row  # Return the row data if account number is found
+                #return row  # Return the row data if account number is found
+                account_name = row[3] 
+                return account_number, account_name
     except Exception as e:
         print(f"Error finding account data: {e}")
-    return None  # Return None if account number is not found
+    return None, None # Return None if account number is not found
 
 
 """def find_account(account_number):
