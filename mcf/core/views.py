@@ -64,12 +64,12 @@ def populate_excel_view(request):
         else:
             form = PopulateExcelForm()
             return render(request, 'core/account_search.html', {'form': form})
-"""      
+      
 def success_view(request):
     
     context = {'message': 'Your form has been submitted successfully!'}
     return render(request, 'core/success.html', context)
-"""
+
 def generate(request):
     """View function for the generate page."""
     if request.method == 'POST':

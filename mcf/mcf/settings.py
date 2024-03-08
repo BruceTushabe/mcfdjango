@@ -88,11 +88,11 @@ DATABASES = {
         #'ENGINE': 'django.db.backends.sqlite3',
         #'NAME': BASE_DIR / 'db.sqlite3',
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mcf',
+        'NAME': 'mcfyaw',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': 'Byaruhanga12',
         'HOST':'localhost',
-        'PORT':'3306',
+        'PORT':'2002',
 
     }
 }
