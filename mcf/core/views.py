@@ -46,8 +46,8 @@ def populate_excel_view(request):
         if form.is_valid():
             form_data = form.cleaned_data  # No need to extract account_number separately
             # Call populate with keyword arguments
-            populate(form_data=form_data)  # Remove account_number from the call
-            return redirect('core:success')  # Redirect to success page
+            populate(form_data)  # Remove account_number from the call
+            return redirect('core:success_view')  # Redirect to success page
         else:
             return render(request, 'core/loan_form.html', {'form': form})
     else:
@@ -64,12 +64,12 @@ def populate_excel_view(request):
         else:
             form = PopulateExcelForm()
             return render(request, 'core/account_search.html', {'form': form})
-        
+"""      
 def success_view(request):
-    """View function for success page"""
+    
     context = {'message': 'Your form has been submitted successfully!'}
     return render(request, 'core/success.html', context)
-
+"""
 def generate(request):
     """View function for the generate page."""
     if request.method == 'POST':
