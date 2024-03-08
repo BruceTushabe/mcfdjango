@@ -9,7 +9,7 @@ urlpatterns = [
     path('contact/', core_views.contact, name='contact'),
     path('upload/', core_views.upload, name='upload'),
     path('loan_form/', core_views.populate_excel_view, name='populate_excel'),
-    #path('success/', core_views.success_view, name='success'),
+    path('success/', core_views.success_view, name='success'),
     path('generate/', core_views.generate, name='generate'),
     path('admin/', admin.site.urls),
     path("__debug__/", include("debug_toolbar.urls")),  # Include Django Debug Toolbar URL pattern
