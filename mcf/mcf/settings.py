@@ -87,12 +87,12 @@ DATABASES = {
     'default': {
         #'ENGINE': 'django.db.backends.sqlite3',
         #'NAME': BASE_DIR / 'db.sqlite3',
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mcfyaw',
-        'USER': 'root',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'yawdefault',
+        'USER': 'postgres',
         'PASSWORD': 'Byaruhanga12',
         'HOST':'localhost',
-        'PORT':'2002',
+        'PORT':'5432',
 
     }
 }

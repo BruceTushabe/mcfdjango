@@ -22,7 +22,7 @@ class Client_Account(models.Model):
     contact = models.CharField(max_length=50)
     DOB = models.DateField()     # Date of Birth
     gender = models.CharField(max_length=50)
-    loan_application_date = models.DateField(null=True, blank=True)
+    loan_application_date = models.DateField(blank=True)
     address_location = models.CharField(max_length=255, blank=True)
     purpose_of_loan = models.CharField(max_length=255, blank=True)
     business_financed = models.CharField(max_length=255, blank=True)
