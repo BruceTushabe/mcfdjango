@@ -1,12 +1,51 @@
 from django import forms
+from django.forms.models import modelform_factory
 
-class PopulateExcelForm(forms.Form):
-    """Form for populating the excel template"""
-    account_number = forms.IntegerField(label="Account Number", required=True)
-    loan_application_date = forms.DateField(label="Loan Application Date", required=True)
-    purpose_of_the_loan = forms.CharField(label="Purpose of the Loan", required=True)
-    address_location = forms.CharField(label="Address/Location", required=True)
-    business_financed = forms.CharField(label="Business Financed", required=True)
-    group_name = forms.CharField(label="Group Name", required=True)
-    reason_for_default_summarised = forms.CharField(label="Reason for Default (Summarised)", required=True)
-    detailed_reason_for_default = forms.CharField(label="Detailed Reason for Default", required=True)
+from core.models import Client_Account  # Import model form factory
+
+
+class SearchForm(forms.Form):
+    account_number = forms.CharField(label='Account Number')
+
+
+"""class ClientInfoForm(forms.Form):
+    def ClientInfoForm(client_account):
+        #    Creates a dynamic form based on the provided client_account instance.
+
+    Args:
+        client_account (django.db.models.Model): The client account object.
+
+    Returns:
+        django.forms.Form: A dynamically generated form based on the client account's fields.
+        #
+
+    fields = {}
+    for field in client_account._meta.get_fields():
+        if not getattr(client_account, field.name):
+            # Only include fields with None values
+            field_instance = field
+            fields[field.name] = forms.CharField(label=field.verbose_name, required=False)  # Set required=False for optional fields
+
+        return type('ClientInfoForm', (forms.Form,), {'fields': fields})"""
+
+# Alternative using model form factory (recommended):
+from django import forms
+
+class ClientInfoForm(forms.Form):
+    """
+    Form for editing client information, dynamically generated with fields
+    that are currently null in the database.
+    """
+
+    def __init__(self, client_account, *args, **kwargs):
+        super(ClientInfoForm, self).__init__(*args, **kwargs)
+
+        self.fields = {}  # Clear any existing fields
+
+        for field in client_account._meta.get_fields():
+            if not getattr(client_account, field.name):
+                # Only include fields with None values
+                field_instance = field
+                self.fields[field.name] = forms.CharField(label=field.verbose_name, required=False)
+
+    

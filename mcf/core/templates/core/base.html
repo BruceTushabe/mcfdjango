@@ -112,41 +112,21 @@
             height: 100%; /* Ensure the div takes the full height */
         }
         .placeholder {
-            display: flex;
+            display: inline-block;
             justify-content: center;
             align-items: center;
             height: 100%; /* Ensure the div takes the full height */
         }
     </style>
-    </style>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const elements = document.querySelectorAll('.center > img');
-
-        document.getElementById('generate').addEventListener('click', () => {
-            elements.forEach(element => {
-                element.style.width = (parseInt(element.style.width || '0') / 2) + 'px';
-                element.style.height = (parseInt(element.style.height || '0') / 2) + 'px';
-            });
-        });
-
-        document.getElementById('populate').addEventListener('click', () => {
-            elements.forEach(element => {
-                element.style.width = (parseInt(element.style.width || '0') / 2) + 'px';
-                element.style.height = (parseInt(element.style.height || '0') / 2) + 'px';
-            });
-        });
-    });
-</script>
 </head>
 <body>
     <nav class="py-8 px-8 flex justify-between items-center border-b border-gray-200">
-        <h1 class="text-xl font-semibold">MCF DEFAULT YAW LOAN CLAIM PROCESSING SYSTEM</h1>
+        <h1 class="text-xl font-semibold">YAW NON-PERFORMING LOANS CLAIM SYSTEM</h1>
 
-            <h3 class="text-lg font-semibold text-gray-500">Enter Details</h3>
+            <h3 class="text-lg font-semibold text-gray-500">Home</h3>
             <div class="space-x-6">
             <a href="{% url 'generate' %}" class="px-6 py-3 text-lg font-semibold bg-red-700 text-white rounded-xl hover:bg-red-900" id="generate">Generate Word</a>
-            <a href="{% url 'populate_excel' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700" id="populate">Populate Excel</a>
+            <a href="{% url 'search_client' %}" class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700" id="generate">Enter Details</a>
         </div>
     </nav>
     <div class="center">
@@ -156,7 +136,8 @@
         <img src="{% static 'ebulogo.png' %}" class="w-40 h-50 ml-2 rounded-full" alt="EBU Logo">
     </div>
     <div class="placeholder">
-        {% block content %}{% endblock %}
+        {% block content %}
+        {% endblock %}
       </div>
 
 
